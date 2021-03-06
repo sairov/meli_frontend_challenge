@@ -1,0 +1,85 @@
+@import "../../assets/scss/globals";
+.card-item {
+  @include flex(row, space-between, end);
+  position: relative;
+  &:after {
+    content: "";
+    width: 95%;
+    height: 2px;
+    background-color: $background;
+    position: absolute;
+    bottom: 0;
+    left: 3%;
+  }
+
+  .content {
+    @include flex(row, flex-start, center);
+
+    .properties {
+      @include flex(column, flex-start, flex-start);
+      height: 100%;
+      .headline {
+        @include flex(row, center, center);
+        margin-bottom: $spacing-double;
+        .price {
+          font-size: $text-xl;
+          font-weight: normal;
+        }
+
+        .icon {
+          width: 22px;
+          margin-left: $spacing-simple;
+          padding-top: 2px;
+        }
+      }
+    }
+
+    .thumbnail {
+      padding: $spacing-simple;
+      width: $sz-small;
+      height: $sz-small;
+      border-radius: $rounded;
+    }
+
+    .short-description {
+      font-size: $text-lg;
+      width: 80%;
+      font-weight: normal;
+    }
+  }
+
+  .address {
+    font-size: $text-xs;
+    margin: 46px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .card-item {
+    flex-direction: column;
+    .content {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      .properties {
+        align-items: center;
+        .headline {
+          .price {
+            font-size: $text-lg;
+            font-weight: normal;
+          }
+        }
+      }
+      .thumbnail {
+        width: 120px;
+        height: 120px;
+      }
+      .short-description {
+        font-size: $text-sm;
+        text-align: center;
+        margin: 0 auto;
+      }
+    }
+  }
+}
