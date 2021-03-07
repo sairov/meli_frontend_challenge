@@ -1,0 +1,19 @@
+@import "../../assets/scss/globals";
+
+.not-found {
+  @include flex(column, center, center);
+  height: 70vh;
+  p {
+    font-size: $text-2xl;
+    margin-top: $spacing-simple;
+  }
+
+  h3 {
+    font-size: $text-4xl;
+    margin-top: $spacing-simple;
+  }
+
+  img {
+    margin-top: $spacing-double;
+  }
+}

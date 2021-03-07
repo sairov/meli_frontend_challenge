@@ -7,7 +7,8 @@ export interface Item {
         amount: number;
         decimals: number;
     },
-    picture: string;
+    thumbnail: string;
+    picture?: string;
     condition: string;
     shipping: {
         free_shipping: boolean;

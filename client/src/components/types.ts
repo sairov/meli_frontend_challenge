@@ -5,37 +5,29 @@ export interface ItemRender {
         currency: string;
         amount: number;
         decimals: number;
-    },
-    picture: string;
+    }
+    thumbnail: string;
+    picture?: string;
+ 
+    
     condition: string;
     shipping: {
         free_shipping: boolean;
     },
-    seller_address?: {
-
-        state:  {
-            name: string;
+    address?: {
+            state_name: string;
         }
-    }
-
     sold_quantity?: number;
     description?: string;
 }
 
 
 export interface Category {
-
-    filters: {
-        values: {
-            path_from_root: {
-                name: string;
-            }
-        }
-    }           
+  name: string;       
 }
 
 export interface SearchItems {
-    categories: Category[]
+    categories?: Category[]
     items: ItemRender[];
 
 }

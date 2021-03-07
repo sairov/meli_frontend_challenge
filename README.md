@@ -2,7 +2,9 @@
 
 ## Ejercicio desarrollado por Pablo Martín Rovira como Challenge para Mercado Libre
 
-### Server runs on ⚡️[app](http://localhost:3001):
+## Setup 🚀
+
+### Server runs on ⚡️[app](http://localhost:3001): http://localhost:3001
 
 ```
 npm install
@@ -10,7 +12,7 @@ npm install
 npm start
 ```
 
-### Client runs on ⚡️[app](http://localhost:3000):
+### Client runs on ⚡️[app](http://localhost:3000): http://localhost:3001
 
 ```
 npm install

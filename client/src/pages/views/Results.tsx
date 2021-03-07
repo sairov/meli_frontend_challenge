@@ -1,8 +1,9 @@
 /** Services and Hooks */
 
 import { ItemService } from '../../server/services/item.services';
-import {useState, useEffect } from 'react';
-import { RouteComponentProps, withRouter} from 'react-router-dom';
+import {useState, useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 
 /** Layout */
 
@@ -13,18 +14,21 @@ import Base from '../layouts/Base';
 import SearchResults from '../../components/SearchResults/SearchResults';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import ItemDetails from '../../components/ItemDetails/ItemDetails';
+import Loader from '../../components/Loader/Loader';
+
 
 
 export interface ResultsProps {
  
 }
 const Results: React.FC<ResultsProps & RouteComponentProps<any>> = (props) => {
-
-
+    
+    const history = useHistory();
+    
     const [itemsToRender, setItemsToRender] = useState([]);
-    const [onRefresh, setOnRefresh] = useState(true);
+    const [haveResults, setHaveResults] = useState(false);
     const [itemDetails, setItemDetails] = useState(false);
-    const [categoriesToRender, setCategoriesToRender] = useState([])
+    const [categoriesToRender, setCategoriesToRender] = useState([]);
     const [singleItem, setSingleItem] = useState({
         id:'',
         title:'',
@@ -33,6 +37,7 @@ const Results: React.FC<ResultsProps & RouteComponentProps<any>> = (props) => {
             amount: 0,
             decimals: 0
         },
+        thumbnail: '',
         picture: '', 
         shipping: {
             free_shipping: false
@@ -45,23 +50,22 @@ const Results: React.FC<ResultsProps & RouteComponentProps<any>> = (props) => {
     useEffect(()=>{
 
         onRefreshAction();
+               
 
     }, [props.location.search, props.match.params.id, itemDetails]);
     
 
     const onRefreshAction = () => {
-        setOnRefresh(true); 
         const  { id }  = props.match.params;
 
         if (id) { 
             getSingleItem(id) 
-            setItemDetails(true)
+            setItemDetails(true);
             
         } else {
             searchItems();
         }
 
-        setOnRefresh(false);
     }
 
     const getSingleItem = async (id: string) => {
@@ -69,25 +73,29 @@ const Results: React.FC<ResultsProps & RouteComponentProps<any>> = (props) => {
 
         try {
             setSingleItem(result);
-            setOnRefresh(false);
+            setHaveResults(true);
 
         } catch (error) {
-            
+            return error;
         }
 
     }
 
     const searchItems = async () => {
         setItemDetails(false);
-        const {items, categories} = await ItemService.search(props.location.search.substring(8))
+        const {items, categories} = await ItemService.search(props.location.search.substring(8).toString())
 
         try {
-            setItemsToRender(items);
-            setCategoriesToRender(categories.json()) 
-           
-        
-        } catch (error) {
+            if (items){
+                setItemsToRender(items);
+                setHaveResults(true);
+            }
+            if(categories ) {
+                setCategoriesToRender(categories);      
+            } 
             
+        } catch (error) {
+            return error;
         }
     } 
 
@@ -95,24 +103,36 @@ const Results: React.FC<ResultsProps & RouteComponentProps<any>> = (props) => {
 
     return (
         <Base>
-    
-             {categoriesToRender &&
+
+            {
+             categoriesToRender && haveResults === true &&
                 <Breadcrumb categories={categoriesToRender} />
-             }
-             {
-                (!onRefresh && !itemDetails && itemsToRender.length > 0) &&
-                (
-                    <SearchResults items={itemsToRender} categories={categoriesToRender}/>
+            }
+
+            {
+                ((itemDetails === false && itemsToRender.length > 0) &&
+
+                <SearchResults items={itemsToRender} />)
+                ||
+
+                ((itemDetails === true) &&
+                
+                <ItemDetails item={ singleItem } />)
+
+                ||
+                
+                ((haveResults === false) &&
+                
+                <Loader />
                 )
-             }
-             {
-                 (!onRefresh && itemDetails) &&
-                 (
-                     <ItemDetails item={ singleItem } />
-                 )
-             }
+                || ((haveResults === true) &&
+                
+                history.push(`/Error404`)
+                
+                )
+            }
         </Base>
  );
 }
  
-export default withRouter(Results);
+export default Results;

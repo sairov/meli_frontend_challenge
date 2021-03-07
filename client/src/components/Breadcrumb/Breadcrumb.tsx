@@ -6,27 +6,29 @@ export interface BreadCrumbProps {
 }
  
 const BreadCrumb: React.FC<BreadCrumbProps> = ( { categories } ) => {
+
+    
+
     return ( 
     
     <>
         <section className="breadcrumb">
 
-            <h1>{categories}</h1>
-    
+               
                 { categories &&
 
-                    categories.map( (category, index) => {
+                    categories.reverse().map( (category, index) => {
                         const lastCategory = (categories.length === (index + 1));
                         if(!lastCategory) {
                             return (
-                                <div className="breadcrum-component-container" key={index}>
-                                    <span>{category} </span>
-                                    <span className="breadcrum-component-separator"> - </span>
+                                <div className="breadcrumb-box" key={index}>
+                                    <span>{category.name} </span>
+                                    <span className="wrapper"> &gt; </span>
                                 </div>
                             
                             );
                         } else {
-                            return (<span key={index}><b>{category}</b></span>)
+                            return (<span className="last-category" key={index}>{category.name}</span>)
                         }
                     })
                 }

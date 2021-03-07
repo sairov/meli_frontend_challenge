@@ -7,32 +7,31 @@ export interface RawData {
         amount: number;
         decimals: number;
     }
-    picture: string;
+    thumbnail: string;
+    picture?:[ 
+        {
+            url: string;
+        }
+    ]
     condition: string;
     shipping: {
         free_shipping: boolean;
     }
-    seller_address: {
-        state: {
-           name: string;
-        }
+    address: {
+        state_name:  string;
+        
     }
+    pictures: string;
     sold_quantity?: number;
     description?: string;
 }
 
-export interface RawDescription {
-    plain_text: string;
-}
+// export interface RawDescription {
+//     plain_text: string;
+// }
 
 export interface RawCategories {
-    filters: {
-        values: {
-            path_from_root: {
-                name: string;
-            }
-        }
-    }   
+    name: string;
 }
 
 export interface SearchResponse {

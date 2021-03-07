@@ -15,10 +15,11 @@ const app = express();
  * Middlewares
  */
 
+app.use(express.urlencoded({extended:false}));
 app.use(express.json());
+
+
 app.use(cors());
-
-
 
 /**
  * Routes

@@ -2,18 +2,21 @@
 export interface RawData { 
         id: string;
         title: string;
-        currency_id: string;
         price: number;
+        currency_id: string;
         thumbnail: string;
         condition: string;
         shipping: {
             free_shipping: boolean;
         },
-        seller_address: {
-            state: {
-                name: string;
-            }
+        address: {
+            state_name: string;
         }
+        pictures?: [
+            {
+                url: string;
+            }
+        ]
         sold_quantity?: number;
         description?: RawDescription;
 }
@@ -21,6 +24,7 @@ export interface RawData {
 export interface RawDescription {
     plain_text: string;
 }
+
 
 export interface RawCategories {
     values: [

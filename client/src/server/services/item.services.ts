@@ -16,7 +16,6 @@ export const ItemService = {
                 }    
             }
         
-            console.log(data);
             return data;
 
             } catch (error) {
@@ -28,20 +27,20 @@ export const ItemService = {
     },
 
     item: async (id: string) => {
+        
         try{
             const response = await fetch(`${URL}/items/${id}`);
-            const data = await response.json();
+            const item = await response.json();
 
             
             if(response.status !== 200) {
                 return {
                     error: true,
-                    message: data.message,
+                    message: item.message,
                 }    
             }
-            
-            console.log(data);
-            return data;
+
+            return item;
 
             } catch (error) {
 

@@ -1,6 +1,7 @@
 import IRoutes from '../interfaces/route';
 import Home from '../pages/views/Home';
 import Results from '../pages/views/Results';
+import Error404 from '../pages/views/Error404';
 
 const routes: IRoutes[] = [
     {
@@ -19,6 +20,12 @@ const routes: IRoutes[] = [
         path: '/items/:id',
         name: 'Item Detail',
         component: Results,
+        exact: true,
+    },
+    {
+        path: '/Error404',
+        name: 'Sin resultados',
+        component: Error404,
         exact: true,
     },
 ]

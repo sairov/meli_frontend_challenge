@@ -5,7 +5,7 @@ const itemRouter = Router();
 
 
 /**
- *  Routes Endpoints
+ *  Routes Handlers
  */
 
 itemRouter.get('/items', ItemsController.search);

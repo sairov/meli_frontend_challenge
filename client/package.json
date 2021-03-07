@@ -1,5 +1,6 @@
 {
-  "name": "Meli FrontEnd Challenge",
+  "name": "melichallenge",
+  "description": "Challenge Frontend para Mercado Libre realizado por Pablo Martín Rovira",
   "version": "0.1.0",
   "private": true,
   "author": "Pablo Martín Rovira",

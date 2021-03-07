@@ -1,7 +1,20 @@
 @import "../../assets/scss/globals";
 
 .breadcrumb {
+  width: 80%;
+  margin: 0 auto;
+  @include flex(row, flex-start, flex-start);
   min-height: 10px;
   padding: $spacing-simple 0;
   background-color: $background;
+  color: $gray;
+  font-size: $text-sm;
+  .breadcrumb-box {
+    .wrapper {
+      margin: 0 10px;
+    }
+  }
+  .last-category {
+    font-weight: bold;
+  }
 }

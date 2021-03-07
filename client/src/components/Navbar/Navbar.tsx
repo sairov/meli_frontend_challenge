@@ -1,5 +1,5 @@
 /** Utils & Hooks*/
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 /** Assets */
@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = () => {
 
     const searchQuery = useRef<any>();
     const history = useHistory();
-
+    
    
  
     const handleClick = () => {

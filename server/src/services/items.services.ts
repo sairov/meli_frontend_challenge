@@ -1,6 +1,13 @@
-// import { response } from 'express';
 import fetch from 'node-fetch';
+
+/**
+ * Get Static Data
+ */
 import { NAME, LASTNAME } from '../config/config';
+
+/**
+ *  Import Data Types
+ */
 import { RawData, RawDescription, SearchResponse } from '../interfaces/rawData.interface';
 import { Item, SearchItems } from '../interfaces/items.interface';
 
@@ -13,14 +20,14 @@ export const ItemServices = {
                 /**
                  * Fetching Data
                  */
-                const URL = `https://api.mercadolibre.com/sites/MLA/search?q=${query}`;
+                const URL = `https://api.mercadolibre.com/sites/MLA/search?q=${encodeURIComponent(query)}`;
                 const response = await fetch(URL);
                 const { results, filters }: SearchResponse = await response.json();
 
                 /**
                  * Formatting array of Categories
                  */      
-                const categories =  filters[0]?.values[0].path_from_root.map(element => ({
+                const categories =  filters[0]?.values[0]?.path_from_root?.map(element => ({
                                 name: element.name
                         }));
 
@@ -35,15 +42,13 @@ export const ItemServices = {
                                         currency: element.currency_id,
                                         decimals: parseFloat((element.price % 1).toFixed(2)),
                                 },
-                                picture: element.thumbnail,
+                                thumbnail: element.thumbnail,
                                 condition: element.condition,
                                 shipping: {
                                         free_shipping: element.shipping.free_shipping
                                 },
-                                seller_address: {
-                                        state: {
-                                                name: element.seller_address.state.name
-                                        }
+                                address: {
+                                        state_name: element.address.state_name
                                 }
                         }))
 
@@ -93,7 +98,8 @@ export const ItemServices = {
                                 currency: element.currency_id,
                                 decimals: parseFloat((element.price % 1).toFixed(2))
                         },
-                        picture: element.thumbnail,
+                        thumbnail: element.thumbnail,
+                        picture: element.pictures?.[0].url,
                         condition: element.condition,
                         shipping: {
                                 free_shipping: element.shipping.free_shipping

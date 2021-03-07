@@ -1,7 +1,5 @@
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import routes from '../config/routes';
-import Home from '../pages/views/Home';
-import Results from '../pages/views/Results';
 export interface RoutesProps {
     
 }
@@ -26,10 +24,6 @@ const Routes: React.FC<{}> = () => {
                     )
                 })
             }
- 
-            {/* <Route path='/'  exact component={Home}/>
-            <Route path='/api/items' exact component={Results} />
-            <Route path='/api/items/:id' exact component={Results} /> */}
         </Switch>
      );
 }
