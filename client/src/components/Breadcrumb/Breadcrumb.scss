@@ -18,3 +18,16 @@
     font-weight: bold;
   }
 }
+
+@media screen and (max-width: 460px) {
+  .breadcrumb {
+    width: 95%;
+    margin-left: $spacing-simple;
+    font-size: 10px;
+    .breadcrumb-box {
+      .wrapper {
+        margin: 0 3px;
+      }
+    }
+  }
+}

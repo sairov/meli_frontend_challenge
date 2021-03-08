@@ -1,7 +1,7 @@
 /** Services and Hooks */
 
 import { ItemService } from '../../server/services/item.services';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -12,7 +12,6 @@ import Base from '../layouts/Base';
 /** Components */
 
 import SearchResults from '../../components/SearchResults/SearchResults';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import ItemDetails from '../../components/ItemDetails/ItemDetails';
 import Loader from '../../components/Loader/Loader';
 
@@ -24,11 +23,15 @@ export interface ResultsProps {
 const Results: React.FC<ResultsProps & RouteComponentProps<any>> = (props) => {
     
     const history = useHistory();
-    
+
+    // State for items from search query
     const [itemsToRender, setItemsToRender] = useState([]);
-    const [haveResults, setHaveResults] = useState(false);
-    const [itemDetails, setItemDetails] = useState(false);
+    // State for categories of items from search query
     const [categoriesToRender, setCategoriesToRender] = useState([]);
+    // Flags states to handle the content to render
+    const [haveResults, setHaveResults] = useState(false); // When is not matching results from search
+    const [itemDetails, setItemDetails] = useState(false); // When it is necessary to render an element instead of a list of elements
+    // State for a single item from id query
     const [singleItem, setSingleItem] = useState({
         id:'',
         title:'',
@@ -41,16 +44,17 @@ const Results: React.FC<ResultsProps & RouteComponentProps<any>> = (props) => {
         picture: '', 
         shipping: {
             free_shipping: false
-        }, 
+        },
+        item_categories: [], 
         condition: '', 
         sold_quantity: 0, 
         description: ''
     });
-    
+
+       
     useEffect(()=>{
 
-        onRefreshAction();
-               
+        onRefreshAction();  
 
     }, [props.location.search, props.match.params.id, itemDetails]);
     
@@ -70,10 +74,9 @@ const Results: React.FC<ResultsProps & RouteComponentProps<any>> = (props) => {
 
     const getSingleItem = async (id: string) => {
         const result = await ItemService.item(id)
-
+        
         try {
             setSingleItem(result);
-            setHaveResults(true);
 
         } catch (error) {
             return error;
@@ -100,39 +103,41 @@ const Results: React.FC<ResultsProps & RouteComponentProps<any>> = (props) => {
     } 
 
 
-
     return (
         <Base>
+                <>
+                {
+                    ((itemDetails === false && itemsToRender.length > 0) &&
 
-            {
-             categoriesToRender && haveResults === true &&
-                <Breadcrumb categories={categoriesToRender} />
-            }
+                    <SearchResults items={itemsToRender} categories={categoriesToRender}/>
+                    
+                    )
+                    ||
+                    
+                    ((itemDetails === true) &&
+    
+                    <ItemDetails item={ singleItem } /> 
+                    
+                    )
 
-            {
-                ((itemDetails === false && itemsToRender.length > 0) &&
+                    ||
+                    
+                    ((haveResults === false) &&
+                    
+                    <Loader type="searchLoader" />
+                    
+                    )
 
-                <SearchResults items={itemsToRender} />)
-                ||
-
-                ((itemDetails === true) &&
-                
-                <ItemDetails item={ singleItem } />)
-
-                ||
-                
-                ((haveResults === false) &&
-                
-                <Loader />
-                )
-                || ((haveResults === true) &&
-                
-                history.push(`/Error404`)
-                
-                )
-            }
+                    || 
+                    
+                    ((haveResults === true) &&
+                    
+                    history.push(`/Error404`)
+                    
+                    )
+                }
+            </>
         </Base>
  );
 }
- 
 export default Results;

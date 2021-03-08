@@ -109,3 +109,9 @@
   text-align: center;
   font-weight: 600;
 }
+
+@media screen and (max-width: 460px) {
+  .headline {
+    font-size: $text-md;
+  }
+}

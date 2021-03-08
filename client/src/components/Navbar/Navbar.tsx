@@ -1,5 +1,5 @@
 /** Utils & Hooks*/
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 /** Assets */

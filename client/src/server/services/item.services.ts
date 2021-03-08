@@ -3,7 +3,7 @@ const URL = `http://localhost:3001/api`;
 
 export const ItemService = {
     
-    search: async (query: string) => {
+    search: async (query: string): Promise<any> => {
         try{
 
             const response = await fetch(`${URL}/items?search=${query}`);
@@ -26,7 +26,7 @@ export const ItemService = {
 
     },
 
-    item: async (id: string) => {
+    item: async (id: string): Promise<any> => {
         
         try{
             const response = await fetch(`${URL}/items/${id}`);

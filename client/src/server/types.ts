@@ -20,15 +20,12 @@ export interface RawData {
     address: {
         state_name:  string;
         
-    }
+    },
+    item_categories: RawCategories[];
     pictures: string;
     sold_quantity?: number;
     description?: string;
 }
-
-// export interface RawDescription {
-//     plain_text: string;
-// }
 
 export interface RawCategories {
     name: string;

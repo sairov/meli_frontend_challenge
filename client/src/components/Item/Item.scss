@@ -66,16 +66,10 @@
   }
 }
 @media screen and (max-width: 720px) {
-  .container {
+  .items-box {
     .card-item {
-      flex-direction: column;
       .content {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
         .properties {
-          align-items: center;
           .headline {
             .price {
               font-size: $text-lg;
@@ -89,9 +83,49 @@
         }
         .short-description {
           font-size: $text-sm;
-          text-align: center;
-          margin: 0 auto;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .items-box {
+    .card-item {
+      padding-top: $spacing-simple;
+      flex-direction: column;
+      align-items: center;
+      .content {
+        flex-direction: column;
+        align-items: center;
+        .properties {
+          flex-direction: column;
+          align-items: center;
+          .headline {
+            .price {
+              font-size: $text-lg;
+              font-weight: normal;
+            }
+          }
+        }
+        .thumbnail {
+          width: 150px;
+          height: 150px;
+        }
+        .short-description {
+          text-align: center;
+        }
+      }
+
+      .address {
+        font-size: $text-xs;
+        color: $light-gray;
+        padding-top: $spacing-double;
+        padding-right: 0;
+        font-weight: 600;
+        width: 50%;
+        text-align: center;
+        margin-bottom: $spacing-double;
       }
     }
   }

@@ -1,3 +1,4 @@
+/** Assets */
 import './NotFound.scss'
 import logo from '../../assets/images/Logo_ML@2x.png'
 export interface NotFoundProps {

@@ -1,7 +1,10 @@
+/** Hooks */
 import {useHistory} from 'react-router-dom';
-import iconTruck from '../../assets/images/ic_shipping.png'
+/** Interfaces */
 import { ItemRender } from '../types';
 
+/** Assets */
+import iconTruck from '../../assets/images/ic_shipping.png'
 import './Item.scss';
 
 export interface ItemProps {

@@ -13,6 +13,7 @@ export interface Item {
     shipping: {
         free_shipping: boolean;
     },
+    categories?: Category[];
     sold_quantity?: number;
     description?: string;
 }

@@ -1,4 +1,6 @@
+/** Interfaces */
 import { Category } from "../types";
+/** Components */
 import './Breadcrumb.scss';
 
 export interface BreadCrumbProps {

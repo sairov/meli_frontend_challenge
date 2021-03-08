@@ -8,19 +8,17 @@ export interface ItemRender {
     }
     thumbnail: string;
     picture?: string;
- 
-    
     condition: string;
     shipping: {
         free_shipping: boolean;
-    },
+    }
     address?: {
             state_name: string;
         }
+    item_categories: Category[];
     sold_quantity?: number;
     description?: string;
 }
-
 
 export interface Category {
   name: string;       
